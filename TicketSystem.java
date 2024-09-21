@@ -49,8 +49,24 @@ public class TicketSystem {
 
       Scanner objScanner = new Scanner(System.in);
 
+      System.out.println("There are " + visitorNum + "'s");
+
       for(int i = 0; i < visitorNum; i++){
+        System.out.println("Visitor " + i);
         
+        System.out.println("Name: ");
+        String visitorName = objScanner.next();
+
+        System.out.println("Age: ");
+        int visitorAge = objScanner.nextInt();
+
+        System.out.println("Ticket: ");
+        String visitorTicket = objScanner.next();
+
+        System.out.println("Ride (Please Answer with Corresponding Number) \n1. Ferris Wheel \n2. Roller Coaster \n3. Dropper: ");
+        String rideChoice = objScanner.next();
+
+        visitor.add(new Visitor(null, i, null, null));
       }
 
       
@@ -79,7 +95,7 @@ public class TicketSystem {
     System.out.println("You have " + numOfVisitors + " visitors");
     ArrayList<Visitor> visitors = new ArrayList<Visitor>(numOfVisitors); //Create list of type Visitor 
     
-    // purchaseTicket2(visitors);
+    purchaseTicket2(visitors, numOfVisitors);
     // Visitor objVisitor = new Visitor();
     // purchaseTicket(objVisitor);
     // joinRideQueue(objVisitor, "Hello");
