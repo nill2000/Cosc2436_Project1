@@ -3,7 +3,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class TicketSystem {
+    private static Random randNum = new Random();
+    private static Scanner objScanner = new Scanner(System.in);
+    public static Visitor visitorObj = new Visitor(null, 0, null, null);
     
+    //Function 1
     static void purchaseTicket(Visitor visitor){
 
       Scanner objScanner = new Scanner(System.in);
@@ -45,33 +49,36 @@ public class TicketSystem {
       
     }
 
-    static void purchaseTicket2(ArrayList<Visitor> visitor, int visitorNum){
+    //Function 2
+    static void purchaseTicket2(ArrayList<Visitor> visitor){
 
-      Scanner objScanner = new Scanner(System.in);
+      System.out.println("Name: ");
+      String visitorName = objScanner.next();
 
-      System.out.println("There are " + visitorNum + "'s");
+      System.out.println("Age: ");
+      int visitorAge = objScanner.nextInt();
 
-      for(int i = 0; i < visitorNum; i++){
-        System.out.println("Visitor " + i);
-        
-        System.out.println("Name: ");
-        String visitorName = objScanner.next();
+      System.out.println("Ticket: ");
+      String visitorTicket = objScanner.next();
 
-        System.out.println("Age: ");
-        int visitorAge = objScanner.nextInt();
+      System.out.println("Rides Available (Please Answer with Corresponding Number) \n1. Ferris Wheel \n2. Roller Coaster \n3. Dropper: ");
+      int rideChoice = objScanner.nextInt();
 
-        System.out.println("Ticket: ");
-        String visitorTicket = objScanner.next();
-
-        System.out.println("Ride (Please Answer with Corresponding Number) \n1. Ferris Wheel \n2. Roller Coaster \n3. Dropper: ");
-        String rideChoice = objScanner.next();
-
-        visitor.add(new Visitor(null, i, null, null));
+      switch(rideChoice){
+        case 1:
+        case 2:
+        case 3:
+        default:
+        System.out.println("Invalid Input \nExitting Program");
+        System.exit(0);
       }
+
+      visitorObj = new Visitor(visitorName, visitorAge, visitorTicket, visitorTicket);
 
       
     }
 
+    //Function 3
     static void joinRideQueue(Visitor visitor, String rideName){
       Scanner objScanner = new Scanner(System.in);
 
@@ -83,19 +90,57 @@ public class TicketSystem {
 
     }
 
+    //Function 4
     static void simulateRide(){
+      System.out.println("Rides will last 5 seconds");
+      //Use random timer
+      //Pop visitor from ride queue
+    }
+
+    //Function 5
+    static void rideCountDown(){
+      for(int i = 3; i > 0; i--){
+        System.out.println("Ride will be in " + i);
+      }
+      System.out.println("Begin Ride \n");
 
     }
 
+    //Function 6
+    static void menuList(){
+      System.out.println("Ticket Menu:");
+      System.out.println("1. Add Visitor");
+      System.out.println("2. Add Visitor to Queue");
+      System.out.println("3. Simulate Ride");
+      System.out.println("4. Exit Program");
+      int menuChoice = objScanner.nextInt();
 
+      switch(menuChoice){
+        case 1:
+          purchaseTicket2(null);
+          break;
+        case 2:
+          joinRideQueue(null, null);
+          break;
+        case 3:
+          rideCountDown();
+          simulateRide();
+          break;
+        case 4:
+          System.out.println("Exitting Program");
+          System.exit(0);
+        default:
+          System.out.println("Invalid Input \nExitting Program");
+          System.exit(0);
+      }
+      
+    }
 
     public static void main(String[] args) {
-    Random randNum = new Random();
-    int numOfVisitors = randNum.nextInt(5) + 1; //Generate random numbers between 1-5
-    System.out.println("You have " + numOfVisitors + " visitors");
-    ArrayList<Visitor> visitors = new ArrayList<Visitor>(numOfVisitors); //Create list of type Visitor 
     
-    purchaseTicket2(visitors, numOfVisitors);
+    ArrayList<Visitor> visitorsList = new ArrayList<Visitor>(); //Create list of type Visitor 
+    
+    purchaseTicket2(visitorsList);
     // Visitor objVisitor = new Visitor();
     // purchaseTicket(objVisitor);
     // joinRideQueue(objVisitor, "Hello");
