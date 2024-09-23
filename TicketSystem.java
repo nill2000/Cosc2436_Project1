@@ -1,92 +1,217 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Stack;
+import java.util.Queue;
 
 public class TicketSystem {
+    //Creates Random object named randNum
     private static Random randNum = new Random();
+
+    //Creates Scanner object named objScanner
     private static Scanner objScanner = new Scanner(System.in);
+
+    //Creates Visitor object named visitorObj
     public static Visitor visitorObj = new Visitor(null, 0, null, null);
+
+    //List to hold type Visitor
+    private static ArrayList<Visitor> visitorsArrayList = new ArrayList<Visitor>();
+    static Stack<Visitor> visitorStack = new Stack<>();
+    Visitor [] visitorList_ = {};
+
+    //Use arraylist for queue
+    private static ArrayList<Visitor> ferrisWheelList = new ArrayList<Visitor>();
+    private static ArrayList<Visitor> rollerCoasterList = new ArrayList<Visitor>();
+    private static ArrayList<Visitor> dropperList = new ArrayList<Visitor>();
+
+
     
-    //Function 1
-    static void purchaseTicket(Visitor visitor){
+    //PurchaseTicket uses LIST
+    static void purchaseTicket(Visitor[] visitor){
+      System.out.println();
 
-      Scanner objScanner = new Scanner(System.in);
-
-      System.out.println("What is your name?");
-      String name = objScanner.next();
-      visitor.name = name;
-
-      System.out.println("What is your age?");
-      int age = objScanner.nextInt();
-      visitor.age = age;
-
-      if (visitor.age > 0 && visitor.age < 18){
-        visitor.ticket = visitor.ticketType[0];
-        System.out.println("Success 1");
-        System.out.println("Person is " + visitor.age + " years old");
-        System.out.println("Person receives " + visitor.ticket + " ticket");
-      } 
-
-      else if (visitor.age >= 18 && visitor.age < 60){
-        visitor.ticket = visitor.ticketType[1];
-        System.out.println("Success 2");
-        System.out.println("Person is " + visitor.age + " years old");
-        System.out.println("Person receives " + visitor.ticket + " ticket");
-      } 
-
-      else if (visitor.age >= 60 && visitor.age <= 100){
-        visitor.ticket = visitor.ticketType[2];
-        System.out.println("Success 3");
-        System.out.println("Person is " + visitor.age + " years old");
-        System.out.println("Person receives " + visitor.ticket + " ticket");
-      } 
-
-      else {
-        System.out.println("Invalid Age. \nExiting Program");
-        System.exit(0);
-      }
-
-      
-    }
-
-    //Function 2
-    static void purchaseTicket2(ArrayList<Visitor> visitor){
-
+      //Inputs Visitor's Name
       System.out.println("Name: ");
       String visitorName = objScanner.next();
+      System.out.println();
 
+      //Inputs Visitor's Age
       System.out.println("Age: ");
       int visitorAge = objScanner.nextInt();
+      String visitorTicket = "";
+      System.out.println();
 
-      System.out.println("Ticket: ");
-      String visitorTicket = objScanner.next();
-
-      System.out.println("Rides Available (Please Answer with Corresponding Number) \n1. Ferris Wheel \n2. Roller Coaster \n3. Dropper: ");
-      int rideChoice = objScanner.nextInt();
-
-      switch(rideChoice){
-        case 1:
-        case 2:
-        case 3:
-        default:
+      //Gets Ticket Type Based on Age
+      if (visitorAge > 0 && visitorAge < 18){
+        visitorTicket = visitorObj.ticketType[0];
+      } else if (visitorAge >= 18 && visitorAge < 60){
+        visitorTicket = visitorObj.ticketType[1];
+      } else if (visitorAge >= 60 && visitorAge <= 100){
+        visitorTicket = visitorObj.ticketType[2];
+      } else {
         System.out.println("Invalid Input \nExitting Program");
         System.exit(0);
       }
+      System.out.println(visitorName + " receives " + visitorTicket + " ticket");
+      System.out.println();
 
-      visitorObj = new Visitor(visitorName, visitorAge, visitorTicket, visitorTicket);
+      //Gets the Ride Choice
+      System.out.println("Rides Available (Please Answer with Corresponding Number): \n1. Ferris Wheel \n2. Roller Coaster \n3. Dropper ");
+      int rideChoice = objScanner.nextInt();
+      String visitorRide = "";
 
+      //Gets the Visitor's Ride based on case statements from visitor object
+      switch(rideChoice){
+        case 1:
+          visitorRide = visitorObj.ridePreference[0];
+          break;
+        case 2:
+          visitorRide = visitorObj.ridePreference[1];
+          break;
+        case 3:
+          visitorRide = visitorObj.ridePreference[2];
+          break;
+        default:
+          System.out.println("Invalid Input \nExitting Program");
+          System.exit(0);
+      }
+      System.out.println(visitorName + " selects " + visitorRide + " ride");
+
+
+      visitorObj = new Visitor(visitorName, visitorAge, visitorTicket, visitorRide);
+      //Append VisitorObj to list // Uses List
       
     }
 
-    //Function 3
-    static void joinRideQueue(Visitor visitor, String rideName){
-      Scanner objScanner = new Scanner(System.in);
+    //PurchaseTicket uses ARRAYLIST
+    static void purchaseTicket2(ArrayList<Visitor> arrayListVisitor){
+      System.out.println();
 
-      System.out.println("Which ride for? " + visitor.name + " (Please Answer with Corresponding Number) \n1. Ferris Wheel \n2. Roller Coaster \n3. Dropper");
+      //Inputs Visitor's Name
+      System.out.println("Name: ");
+      String visitorName = objScanner.next();
+      System.out.println();
+
+      //Inputs Visitor's Age
+      System.out.println("Age: ");
+      int visitorAge = objScanner.nextInt();
+      String visitorTicket = "";
+      System.out.println();
+
+      //Gets Ticket Type Based on Age
+      if (visitorAge > 0 && visitorAge < 18){
+        visitorTicket = visitorObj.ticketType[0];
+      } else if (visitorAge >= 18 && visitorAge < 60){
+        visitorTicket = visitorObj.ticketType[1];
+      } else if (visitorAge >= 60 && visitorAge <= 100){
+        visitorTicket = visitorObj.ticketType[2];
+      } else {
+        System.out.println("Invalid Input \nExitting Program");
+        System.exit(0);
+      }
+      System.out.println(visitorName + " receives " + visitorTicket + " ticket");
+      System.out.println();
+
+      //Gets the Ride Choice
+      System.out.println("Rides Available (Please Answer with Corresponding Number): \n1. Ferris Wheel \n2. Roller Coaster \n3. Dropper ");
       int rideChoice = objScanner.nextInt();
+      String visitorRide = "";
 
-      System.out.println(visitor.name + " has selected " + visitor.ridePreference[rideChoice - 1]);
-      // obj2Scanner.close();
+      //Gets the Visitor's Ride based on case statements from visitor object
+      switch(rideChoice){
+        case 1:
+          visitorRide = visitorObj.ridePreference[0];
+          break;
+        case 2:
+          visitorRide = visitorObj.ridePreference[1];
+          break;
+        case 3:
+          visitorRide = visitorObj.ridePreference[2];
+          break;
+        default:
+          System.out.println("Invalid Input \nExitting Program");
+          System.exit(0);
+      }
+      System.out.println(visitorName + " selects " + visitorRide + " ride");
+
+
+      visitorObj = new Visitor(visitorName, visitorAge, visitorTicket, visitorRide);
+      arrayListVisitor.add(visitorObj); //ArrayList
+    }
+
+    //PurchaseTicket uses STACK - MAYBE COMPLETE
+    static void purchaseTicket3(Stack<Visitor> listStackVisitor){
+      System.out.println();
+
+      //Inputs Visitor's Name
+      System.out.println("Name: ");
+      String visitorName = objScanner.next();
+      System.out.println();
+
+      //Inputs Visitor's Age
+      System.out.println("Age: ");
+      int visitorAge = objScanner.nextInt();
+      String visitorTicket = "";
+      System.out.println();
+
+      //Gets Ticket Type Based on Age
+      if (visitorAge > 0 && visitorAge < 18){
+        visitorTicket = visitorObj.ticketType[0];
+      } else if (visitorAge >= 18 && visitorAge < 60){
+        visitorTicket = visitorObj.ticketType[1];
+      } else if (visitorAge >= 60 && visitorAge <= 100){
+        visitorTicket = visitorObj.ticketType[2];
+      } else {
+        System.out.println("Invalid Input \nExitting Program");
+        System.exit(0);
+      }
+      System.out.println(visitorName + " receives " + visitorTicket + " ticket");
+      System.out.println();
+
+      //Gets the Ride Choice
+      System.out.println("Rides Available (Please Answer with Corresponding Number): \n1. Ferris Wheel \n2. Roller Coaster \n3. Dropper ");
+      int rideChoice = objScanner.nextInt();
+      String visitorRide = "";
+
+      //Gets the Visitor's Ride based on case statements from visitor object
+      switch(rideChoice){
+        case 1:
+          visitorRide = visitorObj.ridePreference[0];
+          break;
+        case 2:
+          visitorRide = visitorObj.ridePreference[1];
+          break;
+        case 3:
+          visitorRide = visitorObj.ridePreference[2];
+          break;
+        default:
+          System.out.println("Invalid Input \nExitting Program");
+          System.exit(0);
+      }
+      System.out.println(visitorName + " selects " + visitorRide + " ride");
+
+
+      visitorObj = new Visitor(visitorName, visitorAge, visitorTicket, visitorRide);
+      listStackVisitor.push(visitorObj); //The Stack
+    }
+
+    //Function 3
+    //Match ride name into the ride queue
+    static void joinRideQueue(Visitor visitor, String rideName){
+      switch(rideName){
+        case "Ferris Wheel":
+          ferrisWheelList.add(visitor);
+          break;
+        case "Roller Coaster":
+          rollerCoasterList.add(visitor);
+          break;
+        case "Dropper":
+          dropperList.add(visitor);
+          break;
+        default:
+        System.exit(0);
+      }
+      System.out.println(visitor.name + " has been added to " + rideName + " Queue.");
 
     }
 
@@ -97,7 +222,7 @@ public class TicketSystem {
       //Pop visitor from ride queue
     }
 
-    //Function 5
+    //Function 5 COMPLETE
     static void rideCountDown(){
       for(int i = 3; i > 0; i--){
         System.out.println("Ride will be in " + i);
@@ -110,17 +235,19 @@ public class TicketSystem {
     static void menuList(){
       System.out.println("Ticket Menu:");
       System.out.println("1. Add Visitor");
-      System.out.println("2. Add Visitor to Queue");
+      System.out.println("2. Add Current Visitors to Queue");
       System.out.println("3. Simulate Ride");
       System.out.println("4. Exit Program");
       int menuChoice = objScanner.nextInt();
 
       switch(menuChoice){
         case 1:
-          purchaseTicket2(null);
+          purchaseTicket3(visitorStack);
           break;
         case 2:
-          joinRideQueue(null, null);
+          Visitor curVisitor = visitorStack.pop();
+          String curVisitorRide = curVisitor.ride;
+          joinRideQueue(curVisitor, curVisitorRide);
           break;
         case 3:
           rideCountDown();
@@ -133,17 +260,20 @@ public class TicketSystem {
           System.out.println("Invalid Input \nExitting Program");
           System.exit(0);
       }
-      
     }
 
     public static void main(String[] args) {
-    
-    ArrayList<Visitor> visitorsList = new ArrayList<Visitor>(); //Create list of type Visitor 
-    
-    purchaseTicket2(visitorsList);
-    // Visitor objVisitor = new Visitor();
-    // purchaseTicket(objVisitor);
-    // joinRideQueue(objVisitor, "Hello");
+
+      boolean Running = true;
+
+      while(Running){
+        System.out.println();
+        menuList();
+      }
+
+      // Visitor objVisitor = new Visitor();
+      // purchaseTicket(objVisitor);
+      // joinRideQueue(objVisitor, "Hello");
   }
   
 }

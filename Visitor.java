@@ -53,4 +53,8 @@ public class Visitor {
   public void getDetails(){
 
   }
+
+  public static void main(String[] args) {
+    System.out.println("Success in Visitor Class");
+  }
 }
