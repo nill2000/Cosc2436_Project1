@@ -6,25 +6,30 @@ import java.util.Stack;
 
 public class TicketSystem {
     //Creates Random object to generate random number
-    private static Random randonObj = new Random();
+    private Random randonObj = new Random();
 
     //Creates Scanner object for input
-    private static Scanner scannerObj = new Scanner(System.in);
+    private Scanner scannerObj = new Scanner(System.in);
 
     //Creates Visitor object named visitorObj
-    public static Visitor visitorObj = new Visitor(null, 0, null, null);
+    private Visitor visitorObj = new Visitor(null, 0, null, null);
 
     //Crates a Stack of type Visitor
-    private static Stack<Visitor> visitorStack = new Stack<>();
+    public Stack<Visitor> visitorStack = new Stack<>();
 
-    //Use arraylist for queue
-    private static ArrayList<Visitor> ferrisWheelList = new ArrayList<Visitor>();
-    private static ArrayList<Visitor> rollerCoasterList = new ArrayList<Visitor>();
-    private static ArrayList<Visitor> dropperList = new ArrayList<Visitor>();
+    //Creates ArrayList for Each Ride Queue of Type Visitor
+    private ArrayList<Visitor> ferrisWheelList = new ArrayList<Visitor>();
+    private ArrayList<Visitor> rollerCoasterList = new ArrayList<Visitor>();
+    private ArrayList<Visitor> dropperList = new ArrayList<Visitor>();
+
+    //main Method in TicketSystem Class to show no errors occurred
+    public static void main(String[] args) {
+      System.out.println("TicketSystem Class Sucess");
+  }
 
 
-    //PurchaseTicket uses STACK - MAYBE COMPLETE
-    static void purchaseTicket(Stack<Visitor> listStackVisitor){
+    //PurchaseTicket Method
+    public void purchaseTicket(Stack<Visitor> listStackVisitor){
       System.out.println();
 
       //Inputs Visitor's Name
@@ -74,14 +79,14 @@ public class TicketSystem {
       }
       System.out.println(visitorName + " selects " + visitorRide + " ride");
 
-
+      //Creates a Visitor Object with Corresponding Details
       visitorObj = new Visitor(visitorName, visitorAge, visitorTicket, visitorRide);
-      listStackVisitor.push(visitorObj); //The Stack
+      //Adds the Visitor Object to the Visitor Stack
+      listStackVisitor.push(visitorObj);
     }
 
-    //Function 3
-    //Match ride name into the ride queue
-    static void joinRideQueue(Visitor visitor, String rideName){
+    //joinRideQueue Method
+    public void joinRideQueue(Visitor visitor, String rideName){
       switch(rideName){
         case "Ferris Wheel":
           ferrisWheelList.add(visitor);
@@ -99,28 +104,41 @@ public class TicketSystem {
       System.out.println(visitor.name + " Added to " + rideName + " Queue.");
     }
 
-    static void showCurrentQueue(){
+    // shoeCurrentQueue Method
+    public void showCurrentQueue(){
+      //Displays Current Ferris Wheel Queue
       if (!ferrisWheelList.isEmpty()){
-
+        System.out.println("Ferris Wheel Queue (Names): ");
+        for(int i = 0; i < ferrisWheelList.size(); i++){
+          System.out.println(ferrisWheelList.get(i).getName());
+        } System.out.println();
       } else {
         System.out.println("Ferris Wheel Queue is Empty");
       }
 
+      //Displays Current Roller Coaster Queue
       if (!rollerCoasterList.isEmpty()){
-
+        System.out.println("Roller Coaster Queue (Names): ");
+        for(int i = 0; i < rollerCoasterList.size(); i++){
+          System.out.println(rollerCoasterList.get(i).getName());
+        } System.out.println();
       } else {
         System.out.println("Roller Coaster Queue is Empty");
       }
 
+      //Displays Current Dropper Queue
       if (!dropperList.isEmpty()){
-
+        System.out.println("Dropper Queue (Names): ");
+        for(int i = 0; i < dropperList.size(); i++){
+          System.out.println(dropperList.get(i).getName());
+        } System.out.println();
       } else {
         System.out.println("Dropper Queue is Empty");
       }
     }
 
-    //Function 4
-    static void simulateRide(){
+    //simulateRide Method
+    public void simulateRide(){
       int rideTime = randonObj.nextInt(4) + 1;
       System.out.println("Ride will last " + rideTime + " seconds");
 
@@ -137,11 +155,11 @@ public class TicketSystem {
       ferrisWheelList.clear();
       rollerCoasterList.clear();
       dropperList.clear();
-      System.out.println("Visitors have been removed from all 3 Queues");
+      System.out.println("Visitors in Queue have been Removed");
     }
 
-    //Function 5 COMPLETE
-    static void rideCountDown(){
+    //rideCountDown Method
+    public void rideCountDown(){
 
       System.out.println("Begins in");
       for(int i = 3; i > 0; i--){
@@ -154,53 +172,4 @@ public class TicketSystem {
       }
       System.out.println("Begin Ride \n");
     }
-
-    //Function 6
-    static void menuList(){
-      System.out.println("Ticket Menu (Corresponding Integer):");
-      System.out.println("1. Add Visitor");
-      System.out.println("2. Add Current Visitors to Queue");
-      System.out.println("3. Show Current Ride Queues");
-      System.out.println("4. Simulate Ride");
-      System.out.println("5. Exit Program");
-      int menuChoice = scannerObj.nextInt();
-
-      switch(menuChoice){
-        case 1:
-          purchaseTicket(visitorStack);
-          break;
-        case 2:
-          if (!visitorStack.empty()){
-            Visitor curVisitor = visitorStack.pop();
-            String curVisitorRide = curVisitor.ride;
-            joinRideQueue(curVisitor, curVisitorRide);
-          } else {
-            System.out.println("No Visitors Available");
-          }
-          break;
-        case 3:
-          showCurrentQueue();
-          break;
-        case 4:
-          rideCountDown();
-          simulateRide();
-          break;
-        case 5:
-          System.out.println("Exitting Program");
-          System.exit(0);
-        default:
-          System.out.println("Invalid Input \nExitting Program");
-          System.exit(0);
-      }
-    }
-
-    public static void main(String[] args) {
-
-      boolean Running = true;
-
-      while(Running){
-        System.out.println();
-        menuList();
-      }
-  }
 }

@@ -1,5 +1,9 @@
 public class Visitor {
 
+  public static void main(String[] args) {
+    System.out.println("Success in Visitor Class");
+  }
+
   String name;
   int age;
   String[] ticketType = {"Child", "Adult", "Senior"};
@@ -15,46 +19,8 @@ public class Visitor {
     this.ride = ride;
   }
 
-  //Setters
-  public void setName(){
-  };
-
-  public void setAge(){
-  };
-
-  public void setTicket(){
-  };
-
-  public void setRide(){
-  };
-
-  //Getters
+  //Getter to Display Names in Current Queue
   public String getName(){
     return name;
   };
-
-  public int getAge(){
-    return age;
-  };
-
-  public String getTicket(){
-    return ticket;
-  };
-
-  public String getRide(){
-    return ride;
-  };
-
-  //General Form
-  public void setDetails(){
-
-  }
-
-  public void getDetails(){
-
-  }
-
-  public static void main(String[] args) {
-    System.out.println("Success in Visitor Class");
-  }
 }
