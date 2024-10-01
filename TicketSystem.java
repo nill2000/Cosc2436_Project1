@@ -44,13 +44,13 @@ public class TicketSystem {
       System.out.println();
 
       //Gets Ticket Type Based on Age
-      if (visitorAge > 0 && visitorAge < 18){
+      if (visitorAge > 0 && visitorAge < 18){ //If age is 0-17, visitor receives child ticket because ticketType[0] from Visitor class is Child
         visitorTicket = visitorObj.ticketType[0];
-      } else if (visitorAge >= 18 && visitorAge < 60){
+      } else if (visitorAge >= 18 && visitorAge < 60){ //If age is 18-59, visitor receives adult ticket because ticketType[1] from Visitor class is adult
         visitorTicket = visitorObj.ticketType[1];
-      } else if (visitorAge >= 60 && visitorAge <= 100){
+      } else if (visitorAge >= 60 && visitorAge <= 100){ //If age is 60-100, visitor receives senior ticket because ticketType[2] from Visitor class is senior
         visitorTicket = visitorObj.ticketType[2];
-      } else {
+      } else { //Invalid Input exits program
         System.out.println("Invalid Input \nExitting Program");
         System.exit(0);
       }
@@ -65,13 +65,13 @@ public class TicketSystem {
       //Gets the Visitor's Ride based on case statements from visitor object
       switch(rideChoice){
         case 1:
-          visitorRide = visitorObj.ridePreference[0];
+          visitorRide = visitorObj.ridePreference[0]; //If input was 1, visitor receives ferris wheel ride because ridePreference[0] in Visitor class is ferris wheel
           break;
         case 2:
-          visitorRide = visitorObj.ridePreference[1];
+          visitorRide = visitorObj.ridePreference[1]; //If input was 2, visitor receives roller coaster ride because ridePreference[0] in Visitor class is roller coaster
           break;
         case 3:
-          visitorRide = visitorObj.ridePreference[2];
+          visitorRide = visitorObj.ridePreference[2]; //If input was 3, visitor receives dropper ride because ridePreference[0] in Visitor class is dropper
           break;
         default:
           System.out.println("Invalid Input \nExitting Program");
@@ -85,20 +85,20 @@ public class TicketSystem {
       listStackVisitor.push(visitorObj);
     }
 
-    //joinRideQueue Method
+    //joinRideQueue Method that takes argument of visitor and ride to place them on the correct ArrayList
     public void joinRideQueue(Visitor visitor, String rideName){
       switch(rideName){
-        case "Ferris Wheel":
+        case "Ferris Wheel": //If visitor's ride was Ferris wheel, visitor will be added to ferris wheel list
           ferrisWheelList.add(visitor);
           break;
-        case "Roller Coaster":
+        case "Roller Coaster": //If visitor's ride was roller coaster, visitor will be added to roller coaster list
           rollerCoasterList.add(visitor);
           break;
-        case "Dropper":
+        case "Dropper": //If visitor's ride was dropper, visitor will be added to dropperlist
           dropperList.add(visitor);
           break;
-        default:
-        System.out.println("Error Occured \nExitting Program");
+        default: //Checks for error and exits
+          System.out.println("Error Occured \nExitting Program");
           System.exit(0);
       }
       System.out.println(visitor.name + " Added to " + rideName + " Queue.");
@@ -107,51 +107,51 @@ public class TicketSystem {
     // shoeCurrentQueue Method
     public void showCurrentQueue(){
       //Displays Current Ferris Wheel Queue
-      if (!ferrisWheelList.isEmpty()){
+      if (!ferrisWheelList.isEmpty()){ //If ferris wheel list isnt empty, print out every visitor's name
         System.out.println("Ferris Wheel Queue (Names): ");
         for(int i = 0; i < ferrisWheelList.size(); i++){
           System.out.println(ferrisWheelList.get(i).getName());
         } System.out.println();
-      } else {
+      } else { //If nobody is in ferris wheel
         System.out.println("Ferris Wheel Queue is Empty");
       }
 
       //Displays Current Roller Coaster Queue
-      if (!rollerCoasterList.isEmpty()){
+      if (!rollerCoasterList.isEmpty()){ //If roller coaster list isnt empty, print out every visitor's name
         System.out.println("Roller Coaster Queue (Names): ");
         for(int i = 0; i < rollerCoasterList.size(); i++){
           System.out.println(rollerCoasterList.get(i).getName());
         } System.out.println();
-      } else {
+      } else { //If nobody is in roller coaster
         System.out.println("Roller Coaster Queue is Empty");
       }
 
       //Displays Current Dropper Queue
-      if (!dropperList.isEmpty()){
+      if (!dropperList.isEmpty()){ //If dropper list isnt empty, print out every visitor's name
         System.out.println("Dropper Queue (Names): ");
         for(int i = 0; i < dropperList.size(); i++){
           System.out.println(dropperList.get(i).getName());
         } System.out.println();
-      } else {
+      } else { //If nobody is in dropper
         System.out.println("Dropper Queue is Empty");
       }
     }
 
     //simulateRide Method
     public void simulateRide(){
-      int rideTime = randonObj.nextInt(4) + 1;
+      int rideTime = randonObj.nextInt(4) + 1; //Generates random number from 1-5 for countdown
       System.out.println("Ride will last " + rideTime + " seconds");
 
-      for(int i = rideTime; i > 0; i--){
+      for(int i = rideTime; i > 0; i--){ 
         System.out.println("Seconds Remaining: "+ i);
         try{
-          Thread.sleep(1000);
+          Thread.sleep(1000); //Function imitates real time 1 second for ride simulation
         } catch(InterruptedException e){
           System.err.println(e);
         }
       }
       
-      //Remove Visitors from Queue
+      //Remove Visitors from Respective Queue after finishing ride
       ferrisWheelList.clear();
       rollerCoasterList.clear();
       dropperList.clear();
@@ -165,7 +165,7 @@ public class TicketSystem {
       for(int i = 3; i > 0; i--){
         System.out.println(i);
         try{
-          Thread.sleep(1000);
+          Thread.sleep(1000); //Function imitates real time 1 second for count down before ride
         } catch(InterruptedException e){
           System.err.println(e);
         }

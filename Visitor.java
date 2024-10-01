@@ -4,6 +4,7 @@ public class Visitor {
     System.out.println("Success in Visitor Class");
   }
 
+  //Variables for the Visitors
   String name;
   int age;
   String[] ticketType = {"Child", "Adult", "Senior"};
